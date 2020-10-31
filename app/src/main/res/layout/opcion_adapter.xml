@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/opcionImg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
         android:src="@drawable/abc" />
 

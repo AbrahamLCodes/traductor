@@ -1,5 +1,6 @@
 package app.traductor.traductor.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import app.traductor.traductor.R;
+import app.traductor.traductor.activities.AbecedarioActivity;
 import app.traductor.traductor.modelo.Opcion;
 import app.traductor.traductor.modelo.OpcionAdapter;
 
@@ -53,7 +55,11 @@ public class EspanolFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), "" + opciones[i].getTexto(), Toast.LENGTH_SHORT).show();
+        switch (i){
+            case 0:
+                startActivity(new Intent(getContext(), AbecedarioActivity.class));
+                break;
+        }
     }
 
     private void iniciarComponentes(View view) {
