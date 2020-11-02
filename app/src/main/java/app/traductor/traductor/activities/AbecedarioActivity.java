@@ -90,10 +90,11 @@ public class AbecedarioActivity extends AppCompatActivity implements TextWatcher
     }
 
     private int getLetra(String l) {
-        if (l.equals("ñ")) {
+        String letra = l.toLowerCase();
+        if (letra.equals("ñ")) {
             return R.drawable.nn;
         } else {
-            return getResources().getIdentifier(l, "drawable", getPackageName());
+            return getResources().getIdentifier(letra, "drawable", getPackageName());
         }
     }
 
