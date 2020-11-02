@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import app.traductor.traductor.R;
 import app.traductor.traductor.activities.AbecedarioActivity;
+import app.traductor.traductor.activities.ColoresActivity;
 import app.traductor.traductor.activities.DiasActivity;
 import app.traductor.traductor.activities.ExpresionesActivity;
 import app.traductor.traductor.activities.MesesActivity;
@@ -78,6 +79,9 @@ public class EspanolFragment extends Fragment implements AdapterView.OnItemClick
                 break;
             case 5:
                 startActivity(new Intent(getContext(), PronombresActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(getContext(), ColoresActivity.class));
                 break;
         }
     }
