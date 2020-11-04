@@ -9,16 +9,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.text.Normalizer;
+import java.util.ArrayList;
+
 
 import app.traductor.traductor.R;
-import app.traductor.traductor.modelo.Opcion;
-import app.traductor.traductor.modelo.OpcionAdapter;
+import app.traductor.traductor.modelo.Conjugaciones;
 import app.traductor.traductor.modelo.TraductorList;
 import app.traductor.traductor.modelo.TraductorListAdapter;
 
@@ -27,12 +28,7 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
     private ListView lista;
     private EditText campo;
     private TextView btn;
-    private TraductorList[] listaImagenes = {
-            new TraductorList(R.drawable.sabado, "Sabado"),
-            new TraductorList(R.drawable.yo, "Yo"),
-            new TraductorList(R.drawable.dormir, "Dormir")
-    };
-
+    private ArrayList<TraductorList> listaImagenes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,13 +46,16 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        listaImagenes = new ArrayList<>();
         iniciarComponentes(view);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnTraducir){
-            Toast.makeText(getContext(), "Accion en construccion", Toast.LENGTH_SHORT).show();
+        if (view.getId() == R.id.btnTraducir) {
+            //Descomponemos toda la cadena en palabras individuales
+            separar(campo.getText().toString());
+            campo.setText("");
         }
     }
 
@@ -69,8 +68,57 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
         lista.setAdapter(new TraductorListAdapter(
                 getContext(),
                 R.layout.traductor_adapter,
-                listaImagenes
+                new TraductorList[]{
+
+                }
         ));
     }
 
+    private void separar(String s) {
+        //Areglo en donde se guardarán las palabras
+        String[] arr = s.split(" ");
+
+        //Ciclo forEach para iterar cada palabra dentro del arreglo
+        for (String ss : arr) {
+            //Checar si el String tiene 3 o más caracteres (Las palabras a traducir los tienen)
+            if (ss.length() > 2) {
+                /* Construimos un String con los 3 primeros caracteres de cada palabra puesto que
+                * de esa manera está construido el algoritmo de devolución de información*/
+                String buscar = (""+ss.charAt(0)) + (""+ ss.charAt(1)) + (""+ss.charAt(2));
+                //Verificamos que el string esté dentro de las palabras a traducir
+                if (Conjugaciones.convertirVerbo(limpiarString(buscar)) != 0) {
+                    //Añadimos un nuevo objeto TraductorList al ArrayList
+                    listaImagenes.add(new TraductorList(
+                            Conjugaciones.convertirVerbo(
+                                    limpiarString(buscar)), ss));
+                }
+            }
+        }
+
+        //Actualizamos la interfaz gráfica
+        lista.setAdapter(new TraductorListAdapter(
+                getContext(),
+                R.layout.traductor_adapter,
+                convertirArrayList(listaImagenes)
+        ));
+        //Reiniciamos el ArrayList para que no se acumulen resultados
+        listaImagenes = new ArrayList<>();
+    }
+
+    //Método para poner un String en minúsculas y sin acentos
+    private String limpiarString(String s) {
+        String original = s.toLowerCase().replaceAll("\\s+", "");
+        String cadenaNormalize = Normalizer.normalize(original, Normalizer.Form.NFD);
+        String cadenaSinAcentos = cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
+        return cadenaSinAcentos;
+    }
+
+    //Usamos este método para convertir el ArrayList<> en un Array[] puesto que el ListAdapter así lo pide
+    private TraductorList[] convertirArrayList(ArrayList<TraductorList> array) {
+        TraductorList[] arreglo = new TraductorList[array.size()];
+        for (int i = 0; i < arreglo.length; i++) {
+            arreglo[i] = array.get(i);
+        }
+        return arreglo;
+    }
 }
