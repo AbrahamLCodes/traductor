@@ -11,25 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.traductor.traductor.R;
 import app.traductor.traductor.modelo.Opcion;
 import app.traductor.traductor.modelo.OpcionAdapter;
+import app.traductor.traductor.modelo.TraductorList;
+import app.traductor.traductor.modelo.TraductorListAdapter;
 
-public class SenasFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class SenasFragment extends Fragment implements View.OnClickListener {
 
-    private ListView listaSe;
-    private Opcion[] opciones = {
-            new Opcion(R.drawable.abc, "Abecedario"),
-            new Opcion(R.drawable.expresiones, "Expresiones básicas"),
-            new Opcion(R.drawable.dia, "Días de la semana"),
-            new Opcion(R.drawable.mes, "Meses del año"),
-            new Opcion(R.drawable.verbo, "Verbos"),
-            new Opcion(R.drawable.pronombre, "Pronombres"),
-            new Opcion(R.drawable.color, "Colores"),
+    private ListView lista;
+    private EditText campo;
+    private TextView btn;
+    private TraductorList[] listaImagenes = {
+            new TraductorList(R.drawable.sabado, "Sabado"),
+            new TraductorList(R.drawable.yo, "Yo"),
+            new TraductorList(R.drawable.dormir, "Dormir")
     };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,17 +54,23 @@ public class SenasFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), "" + opciones[i].getTexto(), Toast.LENGTH_SHORT).show();
+    public void onClick(View view) {
+        if (view.getId() == R.id.btnTraducir){
+            Toast.makeText(getContext(), "Accion en construccion", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void iniciarComponentes(View view) {
-        listaSe = view.findViewById(R.id.listaSe);
-        listaSe.setOnItemClickListener(this);
-        listaSe.setAdapter(new OpcionAdapter(
+        lista = view.findViewById(R.id.listaTraductor);
+        campo = view.findViewById(R.id.traducirEdtTxt);
+        btn = view.findViewById(R.id.btnTraducir);
+
+        btn.setOnClickListener(this);
+        lista.setAdapter(new TraductorListAdapter(
                 getContext(),
-                R.layout.opcion2_adapter,
-                opciones
+                R.layout.traductor_adapter,
+                listaImagenes
         ));
     }
+
 }

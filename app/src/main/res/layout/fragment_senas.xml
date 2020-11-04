@@ -4,13 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <EditText
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:hint="Introduce una oración"
+        android:background="@layout/shape_input"
+        android:layout_margin="10dp"
+        android:id="@+id/traducirEdtTxt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <TextView
+        android:id="@+id/btnTraducir"
+        android:text="TRADUCIR"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="#FF5722"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica"
+        android:textStyle="bold"/>
+
     <ListView
-        android:id="@+id/listaSe"
+        android:id="@+id/listaTraductor"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp" />
+        android:layout_gravity="center"/>
 
 </LinearLayout>
