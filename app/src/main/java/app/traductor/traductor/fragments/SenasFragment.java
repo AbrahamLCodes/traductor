@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -81,15 +83,28 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
         //Ciclo forEach para iterar cada palabra dentro del arreglo
         for (String ss : arr) {
             //Checar si el String tiene 3 o más caracteres (Las palabras a traducir los tienen)
-            if (ss.length() > 2) {
+            if (ss.length() > 1) {
                 /* Construimos un String con los 3 primeros caracteres de cada palabra puesto que
-                * de esa manera está construido el algoritmo de devolución de información*/
-                String buscar = (""+ss.charAt(0)) + (""+ ss.charAt(1)) + (""+ss.charAt(2));
+                 * de esa manera está construido el algoritmo de devolución de información*/
+
+
+                //Validacion para llenar con espacios en blanco si es que no tiene un 4to caracter
+                if (ss.length() <= 3) {
+                    do {
+                        ss += "_";
+                    }while (ss.length() <= 4);
+                    Log.d("Depurando String: ", "(" + ss + ")");
+                }
+
+
+                String buscar = ("" + ss.charAt(0)) + ("" + ss.charAt(1)) + ("" + ss.charAt(2)) + ("" + ss.charAt(3));
                 //Verificamos que el string esté dentro de las palabras a traducir
-                if (Conjugaciones.convertirVerbo(limpiarString(buscar)) != 0) {
+                if (Conjugaciones.obtenerRecurso(limpiarString(buscar)) != 0) {
                     //Añadimos un nuevo objeto TraductorList al ArrayList
+
+                    ss = restaurarString(ss);
                     listaImagenes.add(new TraductorList(
-                            Conjugaciones.convertirVerbo(
+                            Conjugaciones.obtenerRecurso(
                                     limpiarString(buscar)), ss));
                 }
             }
@@ -107,10 +122,14 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
 
     //Método para poner un String en minúsculas y sin acentos
     private String limpiarString(String s) {
-        String original = s.toLowerCase().replaceAll("\\s+", "");
-        String cadenaNormalize = Normalizer.normalize(original, Normalizer.Form.NFD);
-        String cadenaSinAcentos = cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
-        return cadenaSinAcentos;
+        if(!s.toLowerCase().equals("él__")){
+            String original = s.toLowerCase().replaceAll("\\s+", "");
+            String cadenaNormalize = Normalizer.normalize(original, Normalizer.Form.NFD);
+            String cadenaSinAcentos = cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
+            return cadenaSinAcentos;
+        }else{
+            return s;
+        }
     }
 
     //Usamos este método para convertir el ArrayList<> en un Array[] puesto que el ListAdapter así lo pide
@@ -120,5 +139,16 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
             arreglo[i] = array.get(i);
         }
         return arreglo;
+    }
+
+    //Método para restaurar Strngs de menos de 4 letras
+    private String restaurarString(String ss) {
+        String aux = "";
+        for (int i = 0; i < ss.length(); i++) {
+            if(!(""+ss.charAt(i)).equals("_")){
+                aux += ("" + ss.charAt(i));
+            }
+        }
+        return aux;
     }
 }
