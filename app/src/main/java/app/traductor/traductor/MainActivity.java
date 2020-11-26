@@ -1,19 +1,19 @@
 package app.traductor.traductor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
+import app.traductor.traductor.activities.HelpActivity;
 import app.traductor.traductor.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,18 +38,23 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                switch (tabs.getSelectedTabPosition()) {
-                    case 0:
-                        Snackbar.make(view, "FAB español", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                    case 1:
-                        Snackbar.make(view, "FAB inglés", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        break;
-                }
+                showHelp();
             }
         });
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void showHelp() {
+        startActivity(new Intent(this, HelpActivity.class));
     }
 }

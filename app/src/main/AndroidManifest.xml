@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ColoresActivity"></activity>
+        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.ColoresActivity" />
         <activity android:name=".activities.PronombresActivity" />
         <activity android:name=".activities.VerbosActivity" />
         <activity android:name=".activities.MesesActivity" />

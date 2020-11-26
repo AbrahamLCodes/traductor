@@ -35,6 +35,7 @@ public class Conjugaciones {
             /**------------------------ VERBOS ----------------------------------- */
 
             case "come":
+            case "comi":
                 return R.drawable.comer;
             case "dorm":
                 return R.drawable.dormir;
@@ -45,11 +46,14 @@ public class Conjugaciones {
             case "olvi":
                 return R.drawable.olvidar;
             case "quer":
+            case "quie":
                 return R.drawable.querera;
             case "reir":
             case "rien":
             case "rier":
             case "rio_":
+            case "rei_":
+            case "rie_":
                 return R.drawable.reir;
             case "sabe":
                 return R.drawable.saber;
@@ -155,6 +159,7 @@ public class Conjugaciones {
             case "noso":
                 return R.drawable.nosotros;
             case "tu__":
+            case "te__":
                 return R.drawable.tu;
             case "uste":
                 return R.drawable.usted;

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,10 +21,13 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 
 
+import app.traductor.traductor.MainActivity;
 import app.traductor.traductor.R;
 import app.traductor.traductor.modelo.Conjugaciones;
 import app.traductor.traductor.modelo.TraductorList;
 import app.traductor.traductor.modelo.TraductorListAdapter;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SenasFragment extends Fragment implements View.OnClickListener {
 
@@ -58,6 +62,7 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
             //Descomponemos toda la cadena en palabras individuales
             separar(campo.getText().toString());
             campo.setText("");
+            MainActivity.hideKeyboard(getActivity());
         }
     }
 
@@ -70,9 +75,7 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
         lista.setAdapter(new TraductorListAdapter(
                 getContext(),
                 R.layout.traductor_adapter,
-                new TraductorList[]{
-
-                }
+                new TraductorList[]{}
         ));
     }
 
@@ -84,9 +87,8 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
         for (String ss : arr) {
             //Checar si el String tiene 3 o más caracteres (Las palabras a traducir los tienen)
             if (ss.length() > 1) {
-                /* Construimos un String con los 3 primeros caracteres de cada palabra puesto que
+                /* Construimos un String con los 4 primeros caracteres de cada palabra puesto que
                  * de esa manera está construido el algoritmo de devolución de información*/
-
 
                 //Validacion para llenar con espacios en blanco si es que no tiene un 4to caracter
                 if (ss.length() <= 3) {
@@ -95,7 +97,6 @@ public class SenasFragment extends Fragment implements View.OnClickListener {
                     }while (ss.length() <= 4);
                     Log.d("Depurando String: ", "(" + ss + ")");
                 }
-
 
                 String buscar = ("" + ss.charAt(0)) + ("" + ss.charAt(1)) + ("" + ss.charAt(2)) + ("" + ss.charAt(3));
                 //Verificamos que el string esté dentro de las palabras a traducir

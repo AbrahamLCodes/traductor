@@ -4,4 +4,23 @@
     <string name="tab_text_2">Traductor</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="info1">
+        La App tiene 2 principales funcionalidades dividida en 2 pesañas estilo "WhatsApp"
+    </string>
+
+    <string name="info2">
+        La primera pantalla mostrará listas las cuales contienen las palabras registradas en la App.
+        Como es un prototipo, no se cuenta con todas las palabras del español, una App de ese tamaño
+        daría para casi un año de desarrollo. Las palabras están divididas por categorías. Basta con
+        dar click sobre un elemento de la lista para que la App nos mande a otra lista pero con las
+        palabras de esa categoría.
+    </string>
+
+    <string name="info3">
+        La segunda pantalla es el traductor. Este traductor puede construir oraciones con
+        las palabras registradas en la App (La de las listas) y algunas de sus variantes. Por ejemplo:
+        Reir - Rieron - Reí. Basta con introducir una oración (Por ejemplo: Él lloró el lunes) y presionar
+        el botón traducir. La App mostrará una lista con la palabra y la imágen.
+    </string>
 </resources>
