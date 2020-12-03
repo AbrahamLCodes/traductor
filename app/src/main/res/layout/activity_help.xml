@@ -65,6 +65,20 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/video"
+                android:text="Ver el Vídeo"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:fontFamily="@font/helvetica"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="#2196F3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/helvetica"
