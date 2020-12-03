@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -46,6 +47,8 @@ public class HelpActivity extends AppCompatActivity {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
+                }else{
+                    Toast.makeText(HelpActivity.this, "No hay internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
